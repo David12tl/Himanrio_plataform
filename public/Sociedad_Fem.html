@@ -1,0 +1,37 @@
+<h2>Himnario Presbiteriano Solo a Dios se la Gloria</h2>
+<div class="cards-container" id="cards-container"></div>
+
+<script>
+    // Función para generar las tarjetas
+    function generarCards(titulos) {
+        const container = document.getElementById('cards-container');
+        container.innerHTML = ""; // Limpiar contenido previo
+
+        for (let i = 1; i <= 60; i++) {
+            const num = String(i).padStart(3, '0'); // Formato 001, 002...
+            const titulo = titulos[i - 1] || "Sin título";
+
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            card.innerHTML = `
+                <a href="app/himno.html?ver=${i}">
+                    <img src="images/portada.jpg" class="card-img" alt="Himno ${num}">
+                </a>
+                <p class="card-title">${num}</p>
+                <p class="card-info">${titulo}</p>
+            `;
+
+            container.appendChild(card);
+        }
+    }
+
+    // Cargar el JSON de títulos
+    fetch('titulos.json')
+        .then(response => response.json())
+        .then(data => generarCards(data))
+        .catch(error => {
+            console.error('Error al cargar titulos.json:', error);
+            generarCards([]); // Mostrar "Sin título" si falla
+        });
+</script>

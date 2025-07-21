@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="icon" href="../images/libro.png" />
+  <title>Himnario Presbiteriano</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="main">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="nav">
+        <div class="nav-option"><i class="fa-solid fa-house"></i><a href="../index.html">Home</a></div>
+        <div class="nav-option"><i class="fa-solid fa-circle-info"></i><a href="#">Acerca de</a></div>
+      </div>
+      <div class="library">
+        <br />
+        <div class="options">
+          <div class="lib-option nav-option">
+            <a href="../static/introduccion.html">Información General</a>
+          </div>
+          <div class="icons">
+            <a href="../001-060.html"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="sticky-nav">
+        <div class="nav-icons">
+          <a id="prev-link"><img src="../images/backward_icon.png" alt="Back" /></a>
+          <a id="next-link"><img src="../images/forward_icon.png" alt="Forward" /></a>
+        </div>
+      </div>
+
+      <div class="himno" style="color:white; padding:2rem; text-align:center; font-size:1.2rem;">
+        <h1 id="himno-titulo">Cargando...</h1>
+        <p id="himno-letra">Cargando letra...</p>
+      </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+      <div class="player">
+        <audio id="audioPlayer" controls style="width:90%; background:#232323; border-radius:1rem;">
+          <source id="audioSource" src="" type="audio/mp3" />
+          Tu navegador no soporta el elemento de audio.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    let ver = parseInt(params.get('ver')) || 1;
+    ver = Math.min(Math.max(ver, 1), 706);
+
+    // Elementos correctos según tu HTML
+    const himnoTitulo = document.getElementById('himno-titulo');
+    const himnoLetra = document.getElementById('himno-letra');
+    const prevLink = document.getElementById('prev-link');
+    const nextLink = document.getElementById('next-link');
+
+    // Navegación entre himnos
+    prevLink.href = `?ver=${Math.max(ver - 1, 1)}`;
+    nextLink.href = `?ver=${Math.min(ver + 1, 706)}`;
+
+    // Cargar letra.json
+    fetch('letra.json')
+      .then(res => res.json())
+      .then(himnos => {
+        if (himnos[ver]) {
+          himnoTitulo.textContent = himnos[ver].titulo || "Sin título";
+          himnoLetra.innerHTML = (himnos[ver].letra || "").replace(/\n/g, "<br>");
+        } else {
+          himnoTitulo.textContent = "Himno no disponible.";
+          himnoLetra.textContent = "";
+        }
+      })
+      .catch(err => {
+        himnoTitulo.textContent = "Error al cargar el himno.";
+        himnoLetra.textContent = "";
+        console.error("Error al cargar letra.json:", err);
+      });
+  });
+  </script>
+</body>
+</html>
+
