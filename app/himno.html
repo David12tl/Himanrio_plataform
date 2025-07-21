@@ -11,25 +11,67 @@
 </head>
 <body>
   <div class="main">
-    <!-- Sidebar -->
     <div class="sidebar">
-      <div class="nav">
-        <div class="nav-option"><i class="fa-solid fa-house"></i><a href="../index.html">Home</a></div>
-        <div class="nav-option"><i class="fa-solid fa-circle-info"></i><a href="#">Acerca de</a></div>
-      </div>
-      <div class="library">
-        <br />
-        <div class="options">
-          <div class="lib-option nav-option">
-            <a href="../static/introduccion.html">Información General</a>
-          </div>
-          <div class="icons">
-            <a href="../001-060.html"><i class="fa-solid fa-arrow-right"></i></a>
-          </div>
+            <div class="nav">
+                <div class="nav-option">
+                    <i class="fa-solid fa-house"></i><a href="../index.html">Home</a>
+                </div>
+                <div class="nav-option">
+                    <i class="fa-solid fa-circle-info"></i><a href="#">Acerca de</a>
+                </div>
+            </div>
+            <div class="library">
+                <br>
+                <div class="options">
+                    <div class="lib-option nav-option">
+                        <a href="../static/introduccion.html">Informacion General</a>
+                    </div>
+                    <div class="icons">
+                        <a href="../001-060.html"><i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <button class="menu-toggle">☰ Informacion General</button>
+                <div class="lib-menu">
+                    <div class="lib-box">
+                        <div class="box">
+                            <h3>RESEÑA</h3>
+                            <p>Conviene considerar el origen y desarrollo de nuestra iglesia...</p>
+                            <button class="badge" onclick="location.href='../static/reseña.html'">Contenido</button>
+                        </div>
+                        <div class="box">
+                            <h3>Advertencia</h3>
+                            <p>Todos los himnos que integran este himnario Sólo a Dios la...</p>
+                            <button class="badge" onclick="location.href='../static/advertencia.html'">Contenido</button>
+                        </div>
+                        <div class="box">
+                             <h3>Indice</h3>
+                            <p>¿Cuál es el fin principal del nombre? El fin principal del...</p>
+                            <button class="badge" onclick="location.href='../static/indice.html'">Contenido</button>
+                        </div>
+                        <div class="box">
+                            <h3>PRESENTACIÓN</h3>
+                            <p>La Iglesia Nacional Presbiteriana de México, como...</p>
+                            <button class="badge" onclick="location.href='../static/presentacion.html'">Contenido</button>
+                        </div>
+                        <div class="box">
+                            <h3>INTRODUCCIÓN</h3>
+                            <p>El canto es tan antiguo como la creación, «cuando ...</p>
+                            <button class="badge" onclick="location.href='../static/introduccion.html'">Contenido</button>
+                        </div>
+                        <div class="box">
+                            <h3>RECONOCIMIENTO</h3>
+                            <p>La honra y la gloria es para Dios, pero el ...</p>
+                            <button class="badge" onclick="location.href='../static/reconocimiento.html'">Contenido</button>
+                        </div>
+                        <div class="box">
+                            <h3>AYUDAS LITÚRGICAS</h3>
+                            <p>Creo en Dios padre Todopoderoso, Creador del...</p>
+                            <button class="badge" onclick="location.href='../static/ayuda.html'">Contenido</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
     <!-- Main Content -->
     <div class="main-content">
       <div class="sticky-nav">
@@ -92,6 +134,9 @@
       });
   });
   </script>
+  <script src="./components/script.js"></script>
+    <script src="./components/menu-togle.js"></script>
+    <script src="search.js"></script>
 </body>
 </html>
 
