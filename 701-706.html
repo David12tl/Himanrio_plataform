@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" href="images/libro.png">
-    <title>Himnario Presbiteriano</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="icon" href="images/libro.png" />
+  <title>Himnos 001-060</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="main">
-        <div class="sidebar">
+  <div class="main">
+    <div class="sidebar">
             <div class="nav">
                 <div class="nav-option">
                     <i class="fa-solid fa-house"></i><a href="index.html">Home</a>
@@ -26,13 +24,13 @@
                 <br>
                 <div class="options">
                     <div class="lib-option nav-option">
-                        <a href="static/introduccion.html">Información General</a>
+                        <a href="static/introduccion.html">Informacion General</a>
                     </div>
                     <div class="icons">
-                        <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="001-060.html"><i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                <button class="menu-toggle">☰ Información General</button>
+                <button class="menu-toggle">☰ Informacion General</button>
                 <div class="lib-menu">
                     <div class="lib-box">
                         <div class="box">
@@ -52,7 +50,7 @@
                         </div>
                         <div class="box">
                             <h3>PRESENTACIÓN</h3>
-                            <p>La Iglesia Nacional Presbiteriana de México, como parte...</p>
+                            <p>La Iglesia Nacional Presbiteriana de México, como...</p>
                             <button class="badge" onclick="location.href='static/presentacion.html'">Contenido</button>
                         </div>
                         <div class="box">
@@ -74,33 +72,49 @@
                 </div>
             </div>
         </div>
-
-        <div class="main-content">
-            <div class="sticky-nav">
-                <div class="nav-icons">
-                     <a href="index.html"><img src="images/backward_icon.png" class="hide" alt="Back" /></a>
-                    <a href="61-110.html"><img src="images/forward_icon.png" class="hide"></a>
-                </div>
-            </div>
-
-            <!-- Contenedor donde se cargará el contenido dinámico -->
-            <div id="himnos-container">Cargando himnos...</div>
-
-            <div class="footer">
-                <div class="line"></div>
-            </div>
+  <!-- Main Content -->
+    <div class="main-content">
+      <div class="sticky-nav">
+        <div class="nav-icons">
+          <a href="index.html"><img src="images/backward_icon.png" class="hide" alt="Back" /></a>
+          <a href="61-110.html"><img src="images/forward_icon.png" class="hide" alt="Forward" /></a>
         </div>
-    </div>
+      </div>
 
-    <script src="../components/script.js"></script>
-    <script src="../components/menu-togle.js"></script>
-    <script src="../search.js"></script>
-    <script>
-        // Reemplazo de include PHP por fetch
-        fetch('public/himnos_61-110.html')
-            .then(response => response.text())
-            .then(html => document.getElementById('himnos-container').innerHTML = html)
-            .catch(err => console.error('Error al cargar himnos:', err));
-    </script>
+      <h2 style="text-align:center; margin:1rem;">Himnos 001 - 060</h2>
+      <div class="playlist" id="playlist-container">
+        <!-- Cards generadas por JS -->
+      </div>
+
+      <div class="footer">
+        <div class="line"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Generar cards desde el JSON
+    fetch('app/letra.json')
+      .then(res => res.json())
+      .then(himnos => {
+        const container = document.getElementById('playlist-container');
+        for (let i = 701; i <= 706; i++) {
+          const titulo = himnos[i.toString()]?.titulo || `Himno ${i}`;
+          const num = String(i).padStart(3, '0');
+          const div = document.createElement('div');
+          div.className = 'playlist-item';
+          div.innerHTML = `
+            <a href="app/himno.html?ver=${i}">
+              <img src="images/portada.jpg" alt="Himno ${num}">
+              <p>${num} - ${titulo}</p>
+            </a>`;
+          container.appendChild(div);
+        }
+      })
+      .catch(err => console.error('Error cargando himnos:', err));
+  </script>
+  <script src="./components/script.js"></script>
+    <script src="./components/menu-togle.js"></script>
+    <script src="ssearch.js"></script>
 </body>
 </html>

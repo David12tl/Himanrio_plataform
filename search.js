@@ -1,81 +1,32 @@
-let datosGlobales = null;
+function searchHimnos() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = '';
 
-function normalizarTexto(texto) {
-  return texto
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim();
-}
-
-async function cargarDatos() {
-  if (!datosGlobales) {
-    try {
-      const res = await fetch('./search_706_himnos.json');
-      datosGlobales = await res.json();
-    } catch (error) {
-      console.error("Error al cargar JSON:", error);
+    if (!query) {
+        resultsContainer.innerHTML = '<p>Ingresa un número o parte del título para buscar.</p>';
+        return;
     }
-  }
-}
 
-async function buscar() {
-  const input = normalizarTexto(document.getElementById('searchInput').value);
-  await cargarDatos();
+    let found = false;
+    for (let key in himnosData) {
+        const numero = key.toString();
+        const titulo = himnosData[key].titulo.toLowerCase();
 
-  if (!datosGlobales) return alert('Error cargando datos.');
-
-  // Buscar por número exacto
-  if (datosGlobales.por_numero[input]) {
-    window.location.href = datosGlobales.por_numero[input];
-    return;
-  }
-
-  // Buscar por coincidencia en título
-  for (const [titulo, ruta] of Object.entries(datosGlobales.por_nombre)) {
-    if (normalizarTexto(titulo).includes(input)) {
-      window.location.href = ruta;
-      return;
+        // Buscar por número exacto o coincidencia parcial en el título
+        if (numero === query || titulo.includes(query)) {
+            found = true;
+            const div = document.createElement('div');
+            div.classList.add('card');
+            div.innerHTML = `
+                <p class="card-title">${numero} - ${himnosData[key].titulo}</p>
+                <p class="card-info">${himnosData[key].letra.substring(0, 100)}...</p>
+            `;
+            resultsContainer.appendChild(div);
+        }
     }
-  }
 
-  alert('No se encontró el himno. Intenta con parte del título o número.');
-}
-
-async function mostrarSugerencias() {
-  const input = document.getElementById('searchInput').value;
-  const sugerencias = document.getElementById('sugerencias');
-  const texto = normalizarTexto(input);
-
-  await cargarDatos();
-  sugerencias.innerHTML = '';
-
-  if (texto.length === 0) return;
-
-  const resultados = [];
-
-  // Por número
-  if (datosGlobales.por_numero[texto]) {
-    resultados.push({ titulo: `Himno #${texto}`, ruta: datosGlobales.por_numero[texto] });
-  }
-
-  // Por título
-  for (const [titulo, ruta] of Object.entries(datosGlobales.por_nombre)) {
-    if (normalizarTexto(titulo).includes(texto)) {
-      resultados.push({ titulo, ruta });
+    if (!found) {
+        resultsContainer.innerHTML = '<p>No se encontró ningún himno con ese número o título.</p>';
     }
-  }
-
-  resultados.slice(0, 10).forEach(resultado => {
-    const item = document.createElement('div');
-    item.textContent = resultado.titulo;
-    item.onclick = () => window.location.href = resultado.ruta;
-    sugerencias.appendChild(item);
-  });
-
-  if (resultados.length === 0) {
-    const item = document.createElement('div');
-    item.textContent = 'No se encontraron resultados';
-    sugerencias.appendChild(item);
-  }
 }
