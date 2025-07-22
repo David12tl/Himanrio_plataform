@@ -75,8 +75,6 @@
             </div>
         </div>
         <div class="main-content">
-            <div class="sticky-nav"></div>
-
             <!-- Buscador -->
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Buscar himno por título..." />
@@ -91,7 +89,7 @@
                 </div>
                 <div class="card">
                     <a href="61-110.html"><img src="images/carpeta-abierta.png" class="card-img"></a>
-                    <p class="card-title">060 - 110</p>
+                    <p class="card-title">061 - 110</p>
                 </div>
                 <div class="card">
                     <a href="111-160.html"><img src="images/carpeta-abierta.png" class="card-img"></a>
@@ -130,7 +128,7 @@
             <h2>Himno de la Sociedad Femenil</h2>
             <div class="cards-container">
                 <div class="card">
-                    <a href="app/Sociedad_Fem/Sociedad_001.html"><img src="images/Sociedad Femenil.png" class="card-img"></a>
+                    <a href="sociedad_femenil.html"><img src="images/Sociedad Femenil.png" class="card-img"></a>
                     <p class="card-title">Himno de la Sociedad Femenil</p>
                 </div>
             </div>
@@ -171,16 +169,16 @@
         const numero = key.toString();
         const titulo = himnosData[key].titulo.toLowerCase();
 
-        // Buscar por número exacto o coincidencia parcial en el título
         if (numero === query || titulo.includes(query)) {
             found = true;
-            const div = document.createElement('div');
-            div.classList.add('card');
-            div.innerHTML = `
+            const link = document.createElement('a');
+            link.href = `app/himno.html?ver=${numero}`;
+            link.classList.add('card');
+            link.innerHTML = `
                 <p class="card-title">${numero} - ${himnosData[key].titulo}</p>
                 <p class="card-info">${himnosData[key].letra.substring(0, 100)}...</p>
             `;
-            resultsContainer.appendChild(div);
+            resultsContainer.appendChild(link);
         }
     }
 
@@ -188,7 +186,10 @@
         resultsContainer.innerHTML = '<p>No se encontró ningún himno con ese número o título.</p>';
     }
 }
-        
+
+    if (!found) {
+        resultsContainer.innerHTML = '<p>No se encontró ningún himno con ese número o título.</p>';
+    }        
     </script>
 </body>
 </html>

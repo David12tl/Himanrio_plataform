@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
-  <link rel="icon" href="../images/libro.png" />
-  <title>Himnario Presbiteriano</title>
-  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="icon" href="../../images/libro.png" />
+  <title>Himno Sociedad Femenil</title>
+  <link rel="stylesheet" href="../../estilos.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="main">
-    <div class="sidebar">
+     <div class="sidebar">
             <div class="nav">
                 <div class="nav-option">
-                    <i class="fa-solid fa-house"></i><a href="../index.html">Home</a>
+                    <i class="fa-solid fa-house"></i><a href="index.html">Home</a>
                 </div>
                 <div class="nav-option">
                     <i class="fa-solid fa-circle-info"></i><a href="#">Acerca de</a>
@@ -24,10 +24,10 @@
                 <br>
                 <div class="options">
                     <div class="lib-option nav-option">
-                        <a href="../static/introduccion.html">Informacion General</a>
+                        <a href="static/introduccion.html">Informacion General</a>
                     </div>
                     <div class="icons">
-                        <a href="../001-060.html"><i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="001-060.html"><i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <button class="menu-toggle">☰ Informacion General</button>
@@ -36,48 +36,46 @@
                         <div class="box">
                             <h3>RESEÑA</h3>
                             <p>Conviene considerar el origen y desarrollo de nuestra iglesia...</p>
-                            <button class="badge" onclick="location.href='../static/reseña.html'">Contenido</button>
+                            <button class="badge" onclick="location.href='static/reseña.html'">Contenido</button>
                         </div>
                         <div class="box">
                             <h3>Advertencia</h3>
                             <p>Todos los himnos que integran este himnario Sólo a Dios la...</p>
-                            <button class="badge" onclick="location.href='../static/advertencia.html'">Contenido</button>
+                            <button class="badge" onclick="location.href='static/advertencia.html'">Contenido</button>
                         </div>
                         <div class="box">
                              <h3>Indice</h3>
                             <p>¿Cuál es el fin principal del nombre? El fin principal del...</p>
-                            <button class="badge" onclick="location.href='../static/indice.html'">Contenido</button>
+                            <button class="badge" onclick="location.href='static/indice.html'">Contenido</button>
                         </div>
                         <div class="box">
                             <h3>PRESENTACIÓN</h3>
                             <p>La Iglesia Nacional Presbiteriana de México, como...</p>
-                            <button class="badge" onclick="location.href='../static/presentacion.html'">Contenido</button>
+                            <button class="badge" onclick="location.href='static/presentacion.html'">Contenido</button>
                         </div>
                         <div class="box">
                             <h3>INTRODUCCIÓN</h3>
                             <p>El canto es tan antiguo como la creación, «cuando ...</p>
-                            <button class="badge" onclick="location.href='../static/introduccion.html'">Contenido</button>
+                            <button class="badge" onclick="location.href='static/introduccion.html'">Contenido</button>
                         </div>
                         <div class="box">
                             <h3>RECONOCIMIENTO</h3>
                             <p>La honra y la gloria es para Dios, pero el ...</p>
-                            <button class="badge" onclick="location.href='../static/reconocimiento.html'">Contenido</button>
+                            <button class="badge" onclick="location.href='static/reconocimiento.html'">Contenido</button>
                         </div>
                         <div class="box">
                             <h3>AYUDAS LITÚRGICAS</h3>
                             <p>Creo en Dios padre Todopoderoso, Creador del...</p>
-                            <button class="badge" onclick="location.href='../static/ayuda.html'">Contenido</button>
+                            <button class="badge" onclick="location.href='static/ayuda.html'">Contenido</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <!-- Main Content -->
     <div class="main-content">
       <div class="sticky-nav">
         <div class="nav-icons">
-          <a id="prev-link"><img src="../images/backward_icon.png" alt="Back" /></a>
-          <a id="next-link"><img src="../images/forward_icon.png" alt="Forward" /></a>
+          <a href="../../index.html"><img src="../../images/backward_icon.png" class="hide" alt="Back" /></a>
         </div>
       </div>
 
@@ -86,7 +84,6 @@
         <p id="himno-letra">Cargando letra...</p>
       </div>
     </div>
-
     <!-- Music Player -->
     <div class="music-player">
       <div class="player">
@@ -111,51 +108,25 @@
     </div>
   </div>
 
-  <!-- Script -->
   <script>
-  // Formatea segundos a mm:ss
-  function formatTime(seconds) {
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return `${min}:${sec.toString().padStart(2, '0')}`;
-  }
-  document.addEventListener("DOMContentLoaded", () => {
-    const progressBar = document.getElementById('progressBar');
-    const currentTimeEl = document.getElementById('currentTime');
-    const durationEl = document.getElementById('duration');
-    const params = new URLSearchParams(window.location.search);
-    let ver = parseInt(params.get('ver')) || 1;
-    ver = Math.min(Math.max(ver, 1), 706);
-
-    const himnoTitulo = document.getElementById('himno-titulo');
-    const himnoLetra = document.getElementById('himno-letra');
-    const prevLink = document.getElementById('prev-link');
-    const nextLink = document.getElementById('next-link');
-
-    // Navegación entre himnos
-    prevLink.href = `?ver=${Math.max(ver - 1, 1)}`;
-    nextLink.href = `?ver=${Math.min(ver + 1, 707)}`;
-
-    // Cargar letra.json
-    fetch('letra.json')
+    // Cargar himno 707 desde letra.json
+    fetch('../../app/letra.json')
       .then(res => res.json())
       .then(himnos => {
-        if (himnos[ver]) {
-          himnoTitulo.textContent = himnos[ver].titulo || "Sin título";
-          himnoLetra.innerHTML = (himnos[ver].letra || "").replace(/\n/g, "<br>");
+        if (himnos["707"]) {
+          document.getElementById('himno-titulo').textContent = himnos["707"].titulo || "Sin título";
+          document.getElementById('himno-letra').innerHTML = (himnos["707"].letra || "").replace(/\\n/g, "<br>");
         } else {
-          himnoTitulo.textContent = "Himno no disponible.";
-          himnoLetra.textContent = "";
+          document.getElementById('himno-titulo').textContent = "Himno no encontrado.";
+          document.getElementById('himno-letra').textContent = "";
         }
       })
       .catch(err => {
-        himnoTitulo.textContent = "Error al cargar el himno.";
-        himnoLetra.textContent = "";
         console.error("Error al cargar letra.json:", err);
-      });
+        document.getElementById('himno-titulo').textContent = "Error al cargar el himno.";
+        document.getElementById('himno-letra').textContent = "";
 
-    // --- Lógica para reproducir la pista del himno elegido ---
-    let carpeta = "";
+         let carpeta = "";
     if (ver >= 1 && ver <= 60) {
       carpeta = "001-060";
     } else if (ver >= 61 && ver <= 110) {
@@ -185,7 +156,7 @@
       rutaAudio = "../himnos/Sociedad_Femenil.mp3";
     } else {
       const numHimno = ver.toString().padStart(3, '0');
-      rutaAudio = carpeta ? `../himnos/${carpeta}/${numHimno}.mp3` : "";
+      rutaAudio = carpeta ? `../himnos/Sociedad_Femenil.mp3` : "";
     }
 
     const audioSource = document.getElementById('audioSource');
@@ -248,7 +219,7 @@
         window.location.href = `?ver=${random}`;
       } else {
         // Siguiente himno
-        const next = Math.min(ver + 1, 706);
+        const next = Math.min(ver + 1, 707);
         window.location.href = `?ver=${next}`;
       }
     });
@@ -258,7 +229,7 @@
       window.location.href = `?ver=${prev}`;
     });
     nextBtn.addEventListener('click', () => {
-      const next = Math.min(ver + 1, 706);
+      const next = Math.min(ver + 1, 707);
       window.location.href = `?ver=${next}`;
     });
 
@@ -270,11 +241,12 @@
       isShuffle = !isShuffle;
       shuffleBtn.classList.toggle('active', isShuffle);
     });
-  });
+
+      });
+
   </script>
-  <script src="./components/script.js"></script>
-    <script src="./components/menu-togle.js"></script>
-    <script src="search.js"></script>
+  <script src="../../components/script.js"></script>
+  <script src="../../components/menu-togle.js"></script>
 </body>
 </html>
 
